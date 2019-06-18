@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block page_content %}
+
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row text-black">
+                <div class="col-sm-6 offset-sm-3 text-center">
+
+                    <h1 class="display-5">Articulo</h1>
+ 
+                    <form method="post">{% csrf_token %}
+                        {{ form|crispy }}
+                        <br></br>
+                        <input type="submit" class="btn btn-success" value="Submit" />
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section
+
+{% endblock %}

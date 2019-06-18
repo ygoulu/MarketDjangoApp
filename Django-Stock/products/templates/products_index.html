@@ -1,0 +1,95 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<!-- Formulario de busqueda -->
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row text-black">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <h1 class="display-4">Productos</h1>
+                    <div class="info-form">
+                        <form type="get" action="." style="margin: 0" class="form-inline justify-content-center">
+                            <input  id="search_box" type="text" name="search_box"  placeholder="Buscar..." class="form-control" >
+                            <button id="search_submit" type="submit" class="btn btn-success" >Ir</button>
+                        </form>
+
+                        <br></br>
+
+                        {% if user.is_authenticated %}
+                            <div class="col-sm-6 offset-sm-3 text-center">
+                                <a href="create" class="btn btn-info btn-sm" role="button" aria-pressed="true" >Crear Articulo</a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</section
+
+<br></br>
+
+<!-- Cartas de cada producto -->
+<div class="row">
+{% for product in products %}
+    <div class="col-sm-6 offset-sm-3 text-center">
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <h5 class="card-title">{{ product.nombre_item }}</h5>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <div class="col-md-6 text-right">
+                                <a href="{% url 'products_delete' product.codigo %}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" >Eliminar</a>
+                            </div>
+                        {% endif %}                     
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="col-8 col-sm-6">
+                            <p class="card-text"> Tipo: {{ product.tipo_item.nombre_tipo }}</p>
+                        </div>
+                        <div class="col-8 col-sm-6">
+                            <p class="card-text">Codigo: {{ product.codigo }}</p>
+                        </div>
+                        <div class="col-8 col-sm-6">
+                            <p class="card-text">Precio unitario: {{ product.precio }}</p>
+                        </div>
+                        <div class="col-8 col-sm-6">
+                            <p class="card-text">Cantidad: {{ product.cantidad }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if user.is_authenticated %}
+                    <div class="card mb-2" >
+                        <a href="{% url 'products_edit' product.codigo %}" class="btn btn-secondary btn-sm" role="button" aria-pressed="true" >Editar</a>
+                    </div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+
+    {% empty %}
+    <div class="col-sm-9">
+        <div class="card mb-2">
+            <div class="card-body">
+                <h5 class="card-title">No hay items con ese nombre!</h5>
+            </div>
+        </div>
+    </div>        
+    {% endfor %}
+</div>
+
+{% endblock %}

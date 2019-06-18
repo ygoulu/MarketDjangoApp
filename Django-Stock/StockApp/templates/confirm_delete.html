@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block page_content %}
+
+<section id="cover">
+    <div id="cover-caption">
+        <div id="container" class="container">
+            <div class="row text-black">
+                <div class="col-sm-6 offset-sm-3 text-center">
+                
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        Esta seguro que desea eliminarlo?
+                        <a href="/" class="btn btn-success   btn-md" role="button" aria-pressed="true" ><span class="glyphicon glyphicon-user"></span> volver</a>
+                        <button type="submit" class="btn btn-danger">confirmar</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section
+
+{% endblock %}
